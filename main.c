@@ -2,7 +2,9 @@
 #include "BiCola.h"
 
 BiCola rotarDer(BiCola);
+BiCola rotarDerN(BiCola, int);
 BiCola rotarIzq(BiCola);
+BiCola rotarIzqN(BiCola, int);
 void impColaIzq(BiCola);
 void impColaDer(BiCola);
 
@@ -10,7 +12,7 @@ void main()
 {
 
     BiCola bi = nuevaBi();
-    int i;
+    int i,girosDer,girosIzq;
 
     for (i = 1; i <= 10; i++)
     {
@@ -18,21 +20,30 @@ void main()
     }
 
     impColaIzq(bi);
-    printf("\n");
-    impColaDer(bi);
-    printf("\n-----\n");
+    //printf("\n");
+    //impColaDer(bi);
+    //printf("\n-----\n");
 
-    rotarDer(bi); // 3,1,2
+    //rotarDer(bi); // 3,1,2
+    //impColaIzq(bi);
+    //printf("\n");
+    //impColaDer(bi);
+    printf("\nIndique el numero de giros hacia la derecha que desea realizar: ");
+    scanf("%i",&girosDer);
+    rotarDerN(bi,girosDer);
     impColaIzq(bi);
-    printf("\n");
-    impColaDer(bi);
 
-    printf("\n-----\n");
-
-    rotarIzq(bi);
+    printf("\nIndique el numero de giros hacia la izquierda que desea realizar: ");
+    scanf("%i",&girosIzq);
+    rotarIzqN(bi,girosIzq);
     impColaIzq(bi);
-    printf("\n");
-    impColaDer(bi);
+
+    //printf("\n-----\n");
+
+    //rotarIzq(bi);
+    //impColaIzq(bi);
+    //printf("\n");
+    //impColaDer(bi);
 }
 
 BiCola rotarDer(BiCola b)
@@ -42,10 +53,35 @@ BiCola rotarDer(BiCola b)
     return b;
 }
 
+BiCola rotarDerN(BiCola b, int n) 
+{
+    if(n > 0)
+    {
+        b = formIzq(derecho(b), b);
+        b = desfDer(b);
+        n--;
+        rotarDerN(b,n);
+        
+    }
+    return b;
+}
+
 BiCola rotarIzq(BiCola b)
 {
     b = formDer(b, izquierdo(b));
     b = desfIzq(b);
+    return b;
+}
+
+BiCola rotarIzqN(BiCola b, int n) 
+{
+    if(n > 0)
+    {
+        b = formDer(b,izquierdo(b));
+        b = desfIzq(b);
+        n--;
+        rotarIzqN(b,n);
+    }
     return b;
 }
 
